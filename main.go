@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -14,7 +15,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	resp, err := http.Get(fmt.Sprintf("http://localhost:3000/leapYear?year=%d", year))
+
+	resp, err := http.Post("http://localhost:3000/leapYear", "application/json", bytes.NewBufferString(fmt.Sprintf("{\"year\":%d}",year)))
 	if err != nil {
 		log.Fatal(err)
 	}
